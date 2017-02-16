@@ -19,9 +19,6 @@ function startGame (){
 	selectedWord = wordOptions[Math.floor(Math.random() * wordOptions.length)]; //chooses at random a word in the wordOptions array of words 
 	lettersinWord = selectedWord.split(""); //allows for an array of individual letters 	//numBlanks = lettersinWord.length; 
 	numBlanks = lettersinWord.length; 
-console.log(selectedWord);
-console.log(lettersinWord);
-console.log(numBlanks);  
 
 
 //reset round of game  
