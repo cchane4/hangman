@@ -79,10 +79,12 @@ function roundDone() {
 
     //checks to see if you won 
     if (lettersinWord.toString() == blanksAndSuccesses.toString()) {
-        document.getElementById("wins").innerHTML = "Wins:" + winCounter;
-        winCounter++;
-        startGame();
-        alert("you win");
+        document.getElementById("wins").innerHTML = "Wins:" + winCounter; 
+        winCounter++; 
+        setTimeout(function(){ 
+            alert("you win");
+            startGame(); },1000); 
+        
     }
     //checks to see if you lost 
     else if (guessesRemaining == 0) {
