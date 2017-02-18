@@ -18,18 +18,15 @@ var blanksAndSuccesses = []; //holds blanks and successful guesses
 function startGame() {
     selectedWord = wordOptions[Math.floor(Math.random() * wordOptions.length)]; //chooses at random a word in the wordOptions array of words 
     lettersinWord = selectedWord.split(""); //allows for an array of individual letters 	//numBlanks = lettersinWord.length; 
-    numBlanks = lettersinWord.length;
-    console.log(selectedWord);
-    console.log(lettersinWord);
-    console.log(numBlanks);
-
+    numBlanks = lettersinWord.length; //redefining numBlanks to be the length of the word for the sake of iteration 
+    
 
     //reset round of game  
     blanksAndSuccesses = [];
     wrongLetters = [];
     guessesRemaining = 9;
 
-    // repopulate blanksAndSuccesses with correct number of blanks for guessing 
+    // replacing blanksAndSuccesses with correct number of blanks for guessing 
     for (var i = 0; i < numBlanks; i++) {
         blanksAndSuccesses.push("_");
         console.log(blanksAndSuccesses);
@@ -55,23 +52,23 @@ function checkLetters(letterGuessed) {
     }
     //check location of letter and populate the array with that letter if letter is found 
     if (lettersinWord) {
-        for (var i = 0; i < numBlanks; i++) {
+        for (i = 0; i < numBlanks; i++) {
             if (selectedWord[i] == letterGuessed) {
                 blanksAndSuccesses[i] = letterGuessed;
 
             }
         }
     }
-    // if the letter wasn't found 
+    // if the letter wasn't found push it to the letterGuessed array and subtract the guessesRemaining by 1
     else {
         wrongLetters.push(letterGuessed);
-        guessesRemaining--;
+        guessesRemaining--; 
     }
-    console.log(blanksAndSuccesses);
+    
 }
 
 
-function roundDone() {
+function roundDone(){
     //update html 
     document.getElementById("guesses").innerHTML = "Guesses Remaining: " + guessesRemaining;
     document.getElementById("wordDiv").innerHTML = blanksAndSuccesses.join(" ");
@@ -79,19 +76,28 @@ function roundDone() {
 
     //checks to see if you won 
     if (lettersinWord.toString() == blanksAndSuccesses.toString()) {
-        document.getElementById("wins").innerHTML = "Wins:" + winCounter; 
+        document.getElementById("wins").innerHTML = "Wins: " + winCounter; 
         winCounter++; 
         setTimeout(function(){ 
             alert("you win");
-            startGame(); },1000); 
-        
+             },1000); 
+        setTimeout(function(){ 
+            startGame();
+                }, 2000);
+        // a timeout is set on these two functions to allow the user to see the last letter of the word after striking the key
     }
     //checks to see if you lost 
-    else if (guessesRemaining == 0) {
+    else if (guessesRemaining === 0) {
         lossCounter++;
-        alert("you lose");
-        document.getElementById("losses").innerHTML = "Loss:" + lossCounter;
-        startGame();
+        setTimeout(function(){
+            alert ("you lose");
+                },1000); 
+        setTimeout(function(){
+            document.getElementById("losses").innerHTML = "Loss:" + lossCounter;
+                },2000);
+        setTimeout(function(){ 
+            startGame();
+                }, 3000);  
     }
 }
 //MAIN PROCESS
